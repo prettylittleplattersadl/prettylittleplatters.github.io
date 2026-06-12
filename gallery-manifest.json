@@ -1,9 +1,29 @@
 {
   "categories": [
-    { "id": "featured",          "name": "Featured",          "images": ["Main Image.jpg"] },
-    { "id": "signature-grazing", "name": "Signature Grazing", "images": ["Table Image.jpg"] },
-    { "id": "sweet-treats",      "name": "Sweet Treats",      "images": ["Sweets Box.jpg"] },
-    { "id": "grazing-tables",    "name": "Grazing Tables",    "images": ["PRETTY LITTLE PLATTERS June2026-42.jpg"] },
-    { "id": "meat-and-cheese",   "name": "Meat & Cheese",     "images": ["Meat and Cheese.jpg"] }
+    {
+      "id": "featured",
+      "name": "Featured",
+      "images": []
+    },
+    {
+      "id": "signature-grazing",
+      "name": "Signature Grazing",
+      "images": []
+    },
+    {
+      "id": "sweet-treats",
+      "name": "Sweet Treats",
+      "images": []
+    },
+    {
+      "id": "grazing-tables",
+      "name": "Grazing Tables",
+      "images": []
+    },
+    {
+      "id": "meat-and-cheese",
+      "name": "Meat & Cheese",
+      "images": []
+    }
   ]
 }
