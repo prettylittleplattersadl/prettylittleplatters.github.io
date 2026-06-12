@@ -76,10 +76,10 @@ a {
   align-items: center;
   justify-content: flex-end;
   gap: 24px;
-  min-height: 78px;
-  padding: 10px clamp(18px, 4vw, 56px) 10px clamp(32px, 4vw, 56px);
-  background: rgba(255, 250, 246, 0.9);
-  border-bottom: 1px solid rgba(191, 123, 107, 0.1);
+  min-height: 48px;
+  padding: 6px clamp(18px, 4vw, 56px) 6px clamp(32px, 4vw, 56px);
+  background: hsla(13, 33%, 59%, 0.82);
+  border-bottom: none;
   backdrop-filter: blur(18px);
 }
 
@@ -104,7 +104,7 @@ a {
   align-items: center;
   justify-content: flex-end;
   gap: 8px 24px;
-  color: var(--mauve-dark);
+  color: var(--ivory);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -161,7 +161,7 @@ h2,
 h1 {
   margin: 0;
   max-width: 12ch;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: clamp(3.8rem, 11vw, 8.6rem);
 }
 
@@ -202,7 +202,7 @@ h1 {
 }
 
 .button.secondary {
-  color: var(--mauve-dark);
+  color: var(--rose);
   border-color: var(--sage);
   background: rgba(255, 250, 246, 0.76);
 }
@@ -245,7 +245,7 @@ h1 {
 
 .intro-band p {
   margin: 0;
-  font-family: Sacramento, cursive;
+  font-family: "Dancing Script", cursive;
   font-size: clamp(1.4rem, 3vw, 2.2rem);
   line-height: 1.1;
   text-align: center;
@@ -278,14 +278,14 @@ h1 {
 .script {
   margin: 0;
   color: var(--mauve);
-  font-family: Sacramento, cursive;
+  font-family: "Dancing Script", cursive;
   font-size: clamp(2.8rem, 7vw, 5.4rem);
   line-height: 1.15;
 }
 
 h2 {
   margin: 0;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: clamp(2.4rem, 6vw, 5.4rem);
   line-height: 1.08;
 }
@@ -299,8 +299,13 @@ h2 {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: 1.35fr 0.8fr 0.8fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+}
+
+.photo-slot--wide {
+  grid-column: span 2;
+  min-height: 280px;
 }
 
 .portfolio-feature,
@@ -319,7 +324,7 @@ h2 {
 
 .portfolio-feature img {
   width: 100%;
-  height: 620px;
+  height: 418px;
   object-fit: cover;
   object-position: top center;
 }
@@ -337,9 +342,9 @@ h2 {
   width: min(280px, calc(100% - 40px));
   border: 1px solid var(--line);
   padding: 18px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   background: rgba(255, 250, 246, 0.86);
-  font-family: Sacramento, cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 2.6rem;
   line-height: 1.15;
   text-align: center;
@@ -351,7 +356,7 @@ h2 {
 
 .portfolio-feature h3 {
   margin: 0;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 2rem;
   line-height: 1.12;
@@ -359,7 +364,7 @@ h2 {
 
 .photo-slot {
   position: relative;
-  min-height: 300px;
+  min-height: 200px;
   overflow: hidden;
 }
 
@@ -375,9 +380,9 @@ h2 {
   bottom: 16px;
   left: 16px;
   padding: 10px 12px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   background: rgba(255, 250, 246, 0.86);
-  font-family: Sacramento, cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 2rem;
   line-height: 1.15;
   text-align: center;
@@ -474,7 +479,7 @@ h2 {
 
 .menu-title {
   margin: 0;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: clamp(2.45rem, 4vw, 3rem);
   line-height: 1.15;
 }
@@ -537,7 +542,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: 50px;
   padding: 11px 13px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   background: white;
   cursor: pointer;
   font: 700 0.84rem/1.25 Inter, sans-serif;
@@ -588,7 +593,7 @@ dd {
 .extras h3,
 .cart h3 {
   margin: 0 0 10px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.15rem;
   line-height: 1.25;
@@ -640,7 +645,7 @@ dd {
 label {
   display: grid;
   gap: 7px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: 0.78rem;
   line-height: 1.25;
   font-weight: 800;
@@ -696,7 +701,7 @@ textarea:focus {
 }
 
 .cart-item-summary strong {
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: 0.78rem;
 }
 
@@ -708,7 +713,7 @@ textarea:focus {
 
 .quantity-control span {
   min-width: 44px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-size: 0.78rem;
   font-weight: 800;
   text-align: center;
@@ -727,21 +732,21 @@ textarea:focus {
 }
 
 .quantity-control button {
-  color: var(--mauve-dark);
+  color: var(--rose);
   background: var(--accent-soft);
   font-weight: 800;
 }
 
 .cart-total {
   margin: 14px 0 0;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-weight: 800;
 }
 
 .form-status {
   min-height: 20px;
   margin: 0;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-weight: 700;
 }
 
@@ -751,7 +756,7 @@ textarea:focus {
   justify-content: space-between;
   gap: 24px;
   padding: 28px clamp(18px, 5vw, 72px) 28px clamp(32px, 5vw, 72px);
-  color: var(--mauve-dark);
+  color: var(--rose);
   background: var(--ivory);
 }
 
@@ -918,7 +923,7 @@ address a {
 
 .about-pillar h3 {
   margin: 0 0 12px;
-  color: var(--mauve-dark);
+  color: var(--rose);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.5rem;
   font-weight: 600;
@@ -1100,3 +1105,201 @@ address a {
     flex-direction: column;
   }
 }
+
+/* ── Gallery Folders ─────────────────────────────────── */
+
+.gallery-folders {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 0 clamp(18px, 5vw, 72px) 60px;
+}
+
+.folder-card {
+  border: none;
+  background: rgba(255, 250, 246, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.folder-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(107, 63, 48, 0.18);
+}
+
+.folder-card-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--blush);
+}
+
+.folder-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.folder-card:hover .folder-card-thumb img {
+  transform: scale(1.04);
+}
+
+.folder-thumb-empty {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--blush), var(--accent-soft));
+}
+
+.folder-card-info {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.folder-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--rose);
+  line-height: 1.2;
+}
+
+.folder-count {
+  font-size: 0.73rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Open folder view ───────────────────────────────── */
+
+.gallery-open-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 clamp(18px, 5vw, 72px) 28px;
+}
+
+.gallery-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  color: var(--rose);
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 8px 0;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.gallery-back:hover { opacity: 0.65; }
+
+.gallery-open-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.gallery-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  padding: 0 clamp(18px, 5vw, 72px) 60px;
+}
+
+.gallery-img-item {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 1;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s;
+}
+
+.gallery-img-item:hover { transform: scale(1.02); }
+
+.gallery-img-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-empty {
+  color: var(--muted);
+  font-style: italic;
+  padding: clamp(18px, 5vw, 72px);
+}
+
+/* ── Lightbox ───────────────────────────────────────── */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(23, 20, 21, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox[hidden] { display: none; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.lightbox-close:hover { color: white; }
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 2.6rem;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-prev:hover,
+.lightbox-next:hover { background: rgba(255, 255, 255, 0.22); }

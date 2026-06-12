@@ -1,0 +1,61 @@
+name: Update Gallery Manifest
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'gallery-manifest.json'
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate gallery manifest
+        run: |
+          python3 << 'EOF'
+          import os, json
+
+          gallery_dir = 'assets/gallery'
+          config_path = 'gallery-categories.json'
+
+          with open(config_path) as f:
+            categories_config = json.load(f)
+
+          categories = []
+          for cat in categories_config:
+            folder_path = os.path.join(gallery_dir, cat['id'])
+            images = []
+            if os.path.isdir(folder_path):
+              images = sorted([
+                f for f in os.listdir(folder_path)
+                if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))
+                and not f.startswith('.')
+              ])
+            categories.append({
+              'id':     cat['id'],
+              'name':   cat['name'],
+              'images': images
+            })
+
+          with open('gallery-manifest.json', 'w') as f:
+            json.dump({'categories': categories}, f, indent=2)
+
+          print(f"Manifest updated: {sum(len(c['images']) for c in categories)} images across {len(categories)} categories")
+          EOF
+
+      - name: Commit manifest if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add gallery-manifest.json
+          if git diff --staged --quiet; then
+            echo "Manifest unchanged, nothing to commit."
+          else
+            git commit -m "Update gallery manifest [skip ci]"
+            git push
+          fi

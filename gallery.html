@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Sacramento&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     >
     <link rel="stylesheet" href="styles.css?v=7">
@@ -50,26 +50,14 @@
         </div>
       </section>
 
-      <div class="slideshow" id="slideshow">
-        <div class="slide is-active">
-          <img src="assets/Feature Image.jpg" alt="Featured grazing platter by Pretty Little Platters ADL">
-          <p class="slide-caption">Featured platter</p>
+      <div class="gallery-folders" id="galleryFolders"></div>
+
+      <div class="gallery-open" id="galleryOpen" hidden>
+        <div class="gallery-open-header">
+          <button class="gallery-back" id="galleryBack">&#8592; Back</button>
+          <h2 class="gallery-open-title" id="galleryFolderTitle"></h2>
         </div>
-        <div class="slide">
-          <img src="assets/HOMEPAGE IMAGE.jpg" alt="Signature grazing platter with fruit and cheeses">
-          <p class="slide-caption">Signature grazing</p>
-        </div>
-        <div class="slide">
-          <img src="assets/Grazing table.png" alt="Grazing table styled for an event">
-          <p class="slide-caption">Grazing tables</p>
-        </div>
-        <div class="slide">
-          <img src="assets/BIRDS EYE LARGE BOARD.png" alt="Birds eye view of a large grazing board">
-          <p class="slide-caption">Large boards</p>
-        </div>
-        <button class="slideshow-btn slideshow-prev" aria-label="Previous image">&#8249;</button>
-        <button class="slideshow-btn slideshow-next" aria-label="Next image">&#8250;</button>
-        <div class="slideshow-dots" aria-label="Gallery navigation"></div>
+        <div class="gallery-images" id="galleryImages"></div>
       </div>
 
       <section class="section" style="padding-top: 48px;">
@@ -79,6 +67,13 @@
         </div>
       </section>
     </main>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="lightbox-close" id="lightboxClose">&#215;</button>
+      <button class="lightbox-prev" id="lightboxPrev">&#8249;</button>
+      <img id="lightboxImg" src="" alt="">
+      <button class="lightbox-next" id="lightboxNext">&#8250;</button>
+    </div>
 
     <footer class="footer" id="contact">
       <div>
@@ -95,47 +90,122 @@
     <script src="transitions.js"></script>
     <script>
       (function () {
-        const el = document.getElementById('slideshow');
-        const slides = el.querySelectorAll('.slide');
-        const dotsWrap = el.querySelector('.slideshow-dots');
-        let current = 0;
-        let timer;
+        var GALLERY_BASE = 'assets/gallery/';
+        var foldersEl   = document.getElementById('galleryFolders');
+        var openEl      = document.getElementById('galleryOpen');
+        var backBtn     = document.getElementById('galleryBack');
+        var titleEl     = document.getElementById('galleryFolderTitle');
+        var imagesEl    = document.getElementById('galleryImages');
+        var lightbox    = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
 
-        slides.forEach(function (_, i) {
-          const dot = document.createElement('button');
-          dot.className = 'dot' + (i === 0 ? ' is-active' : '');
-          dot.setAttribute('aria-label', 'Image ' + (i + 1));
-          dot.addEventListener('click', function () { reset(); go(i); start(); });
-          dotsWrap.appendChild(dot);
+        var currentImages = [];
+        var currentIndex  = 0;
+
+        fetch('gallery-manifest.json')
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(function (data) { renderFolders(data.categories); })
+          .catch(function () {
+            foldersEl.innerHTML = '<p class="gallery-empty">Gallery coming soon.</p>';
+          });
+
+        function renderFolders(categories) {
+          if (!categories || !categories.length) {
+            foldersEl.innerHTML = '<p class="gallery-empty">Gallery coming soon.</p>';
+            return;
+          }
+          foldersEl.innerHTML = categories.map(function (cat) {
+            var thumb = cat.images.length
+              ? '<img src="' + GALLERY_BASE + cat.id + '/' + cat.images[0] + '" alt="' + cat.name + '" loading="lazy">'
+              : '<div class="folder-thumb-empty"></div>';
+            var count = cat.images.length
+              ? cat.images.length + ' photo' + (cat.images.length !== 1 ? 's' : '')
+              : 'Coming soon';
+            return '<button class="folder-card" data-id="' + cat.id + '" data-name="' + cat.name + '">'
+              + '<div class="folder-card-thumb">' + thumb + '</div>'
+              + '<div class="folder-card-info">'
+              + '<span class="folder-name">' + cat.name + '</span>'
+              + '<span class="folder-count">' + count + '</span>'
+              + '</div></button>';
+          }).join('');
+
+          foldersEl.querySelectorAll('.folder-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+              var id   = card.dataset.id;
+              var cat  = categories.find(function (c) { return c.id === id; });
+              openFolder(cat);
+            });
+          });
+        }
+
+        function openFolder(cat) {
+          titleEl.textContent = cat.name;
+          currentImages = cat.images.map(function (img) {
+            return GALLERY_BASE + cat.id + '/' + img;
+          });
+
+          if (!currentImages.length) {
+            imagesEl.innerHTML = '<p class="gallery-empty">Photos coming soon — check back after the next update.</p>';
+          } else {
+            imagesEl.innerHTML = currentImages.map(function (src, i) {
+              return '<button class="gallery-img-item" data-index="' + i + '">'
+                + '<img src="' + src + '" alt="' + cat.name + ' photo ' + (i + 1) + '" loading="lazy">'
+                + '</button>';
+            }).join('');
+
+            imagesEl.querySelectorAll('.gallery-img-item').forEach(function (item) {
+              item.addEventListener('click', function () {
+                openLightbox(parseInt(item.dataset.index, 10));
+              });
+            });
+          }
+
+          foldersEl.hidden = true;
+          openEl.hidden    = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        backBtn.addEventListener('click', function () {
+          openEl.hidden    = true;
+          foldersEl.hidden = false;
         });
 
-        function go(n) {
-          slides[current].classList.remove('is-active');
-          dotsWrap.children[current].classList.remove('is-active');
-          current = (n + slides.length) % slides.length;
-          slides[current].classList.add('is-active');
-          dotsWrap.children[current].classList.add('is-active');
+        function openLightbox(index) {
+          currentIndex = index;
+          lightboxImg.src = currentImages[currentIndex];
+          lightbox.hidden = false;
+          document.body.style.overflow = 'hidden';
         }
 
-        function start() {
-          timer = setTimeout(function () {
-            go(current + 1);
-            timer = setTimeout(start, 900);
-          }, 5000);
+        function closeLightbox() {
+          lightbox.hidden = true;
+          document.body.style.overflow = '';
         }
-        function reset() { clearTimeout(timer); }
 
-        el.querySelector('.slideshow-prev').addEventListener('click', function () { reset(); go(current - 1); start(); });
-        el.querySelector('.slideshow-next').addEventListener('click', function () { reset(); go(current + 1); start(); });
-        el.addEventListener('mouseenter', reset);
-        el.addEventListener('mouseleave', start);
+        function prevImage() {
+          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+          lightboxImg.src = currentImages[currentIndex];
+        }
+
+        function nextImage() {
+          currentIndex = (currentIndex + 1) % currentImages.length;
+          lightboxImg.src = currentImages[currentIndex];
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', prevImage);
+        document.getElementById('lightboxNext').addEventListener('click', nextImage);
+
+        lightbox.addEventListener('click', function (e) {
+          if (e.target === lightbox) closeLightbox();
+        });
 
         document.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowLeft') { reset(); go(current - 1); start(); }
-          if (e.key === 'ArrowRight') { reset(); go(current + 1); start(); }
+          if (lightbox.hidden) return;
+          if (e.key === 'Escape')     closeLightbox();
+          if (e.key === 'ArrowLeft')  prevImage();
+          if (e.key === 'ArrowRight') nextImage();
         });
-
-        start();
       }());
     </script>
   </body>
