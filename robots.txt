@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prettylittleplattersadl.com.au/sitemap.xml
