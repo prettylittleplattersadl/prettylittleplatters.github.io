@@ -102,7 +102,7 @@
         var currentImages = [];
         var currentIndex  = 0;
 
-        fetch('gallery-manifest.json')
+        fetch('gallery-manifest.json?v=' + Date.now())
           .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
           .then(function (data) { renderFolders(data.categories); })
           .catch(function () {
