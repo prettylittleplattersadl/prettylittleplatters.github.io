@@ -74,13 +74,27 @@ a {
   z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 24px;
   min-height: 48px;
-  padding: 6px clamp(18px, 4vw, 56px) 6px clamp(32px, 4vw, 56px);
+  padding: 6px clamp(18px, 4vw, 56px);
   background: hsla(13, 33%, 59%, 0.82);
   border-bottom: none;
   backdrop-filter: blur(18px);
+}
+
+.nav-logo-link {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.nav-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(191, 123, 107, 0.2);
+  box-shadow: 0 2px 8px rgba(107, 63, 48, 0.18);
 }
 
 .hero-logo,
