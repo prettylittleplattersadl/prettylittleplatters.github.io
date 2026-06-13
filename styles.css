@@ -756,6 +756,7 @@ textarea:focus {
 
 .footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -776,6 +777,16 @@ textarea:focus {
   width: 54px;
   height: 54px;
   object-fit: cover;
+}
+
+.footer-copyright {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(191, 123, 107, 0.15);
 }
 
 address {
