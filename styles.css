@@ -90,6 +90,10 @@ a {
   border: 1px solid rgba(191, 123, 107, 0.12);
 }
 
+.page-logo-wrap {
+  padding: clamp(44px, 8vw, 88px) clamp(18px, 5vw, 72px) 0 clamp(32px, 5vw, 72px);
+}
+
 .hero-logo {
   width: clamp(132px, 22vw, 220px);
   height: clamp(132px, 22vw, 220px);
