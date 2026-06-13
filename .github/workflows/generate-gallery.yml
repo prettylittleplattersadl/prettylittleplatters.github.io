@@ -20,7 +20,7 @@ jobs:
           python3 << 'EOF'
           import os, json
 
-          gallery_dir = 'assets/gallery'
+          gallery_dir = 'assets/Gallery'
           config_path = 'gallery-categories.json'
 
           with open(config_path) as f:
