@@ -3,27 +3,27 @@
     {
       "id": "featured",
       "name": "Featured",
-      "images": ["Main Image.jpg"]
+      "images": []
     },
     {
       "id": "signature-grazing",
       "name": "Signature Grazing",
-      "images": ["Table Image.jpg"]
+      "images": []
     },
     {
       "id": "sweet-treats",
       "name": "Sweet Treats",
-      "images": ["Sweets Box.jpg"]
+      "images": []
     },
     {
       "id": "grazing-tables",
       "name": "Grazing Tables",
-      "images": ["PRETTY LITTLE PLATTERS June2026-42.jpg"]
+      "images": []
     },
     {
       "id": "meat-and-cheese",
       "name": "Meat & Cheese",
-      "images": ["Meat and Cheese.jpg"]
+      "images": []
     }
   ]
 }
