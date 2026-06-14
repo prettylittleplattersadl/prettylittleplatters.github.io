@@ -30,6 +30,9 @@
   </head>
   <body>
     <header class="site-header" id="top">
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <nav class="nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="gallery.html">Gallery</a>
@@ -169,6 +172,7 @@
 
           foldersEl.hidden = true;
           openEl.hidden    = false;
+          openEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         backBtn.addEventListener('click', function () {
