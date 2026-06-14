@@ -175,8 +175,12 @@ cartItems.addEventListener("click", (event) => {
   renderCart();
 });
 
-orderForm.addEventListener("submit", (event) => {
+orderForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  const submitBtn = orderForm.querySelector("button[type=submit]");
+  submitBtn.disabled = true;
+  formStatus.textContent = "Sending…";
 
   const data = new FormData(orderForm);
   const items = selected.length
@@ -189,7 +193,7 @@ orderForm.addEventListener("submit", (event) => {
     : "- No platter selected yet";
 
   const total = selected.reduce((sum, entry) => sum + entry.price * entry.quantity, 0);
-  const body = [
+  const message = [
     `Name: ${data.get("name")}`,
     `Email: ${data.get("email")}`,
     `Phone: ${data.get("phone") || ""}`,
@@ -203,9 +207,34 @@ orderForm.addEventListener("submit", (event) => {
     `Notes: ${data.get("notes") || ""}`,
   ].join("\n");
 
-  const subject = encodeURIComponent("Pretty Little Platters order enquiry");
-  window.location.href = `mailto:prettylittleplattersadl@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-  formStatus.textContent = "Email draft prepared with your platter enquiry.";
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_key: "bbb82989-213b-4013-bde9-e8db6e3e1ba0",
+        subject: "Pretty Little Platters order enquiry",
+        from_name: data.get("name"),
+        email: data.get("email"),
+        replyto: data.get("email"),
+        message,
+      }),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      formStatus.textContent = "Enquiry sent! We'll be in touch soon.";
+      orderForm.reset();
+      selected.length = 0;
+      renderCart();
+    } else {
+      throw new Error(result.message || "Submission failed");
+    }
+  } catch {
+    formStatus.textContent = "Something went wrong. Please email us directly at hello@prettylittleplattersadl.com.au";
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
 
 renderMenu();

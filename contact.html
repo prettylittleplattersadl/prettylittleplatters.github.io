@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact | Pretty Little Platters ADL</title>
+    <meta
+      name="description"
+      content="Get in touch with Pretty Little Platters ADL. Send us an enquiry and we'll get back to you soon."
+    >
+    <link rel="canonical" href="https://prettylittleplattersadl.com.au/contact.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://prettylittleplattersadl.com.au/contact.html">
+    <meta property="og:title" content="Contact | Pretty Little Platters ADL">
+    <meta property="og:description" content="Get in touch with Pretty Little Platters ADL. Send us an enquiry and we'll get back to you soon.">
+    <meta property="og:image" content="https://prettylittleplattersadl.com.au/assets/HOMEPAGE%20IMAGE.jpg">
+    <meta property="og:site_name" content="Pretty Little Platters ADL">
+    <meta property="og:locale" content="en_AU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact | Pretty Little Platters ADL">
+    <meta name="twitter:description" content="Get in touch with Pretty Little Platters ADL. Send us an enquiry and we'll get back to you soon.">
+    <meta name="twitter:image" content="https://prettylittleplattersadl.com.au/assets/HOMEPAGE%20IMAGE.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css?v=7">
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="menu.html">Menu & order</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-logo-wrap">
+        <img class="hero-logo" src="assets/logo.jpg" alt="Pretty Little Platters ADL logo">
+      </div>
+
+      <section class="order-section">
+        <div class="order-copy">
+          <p class="script">Say hello</p>
+          <h2>Get in touch.</h2>
+          <p>
+            Have a question, a special request, or ready to start planning your event?
+            Send us a message and we'll get back to you as soon as possible.
+          </p>
+          <div class="booking-notes">
+            <p>Based in Adelaide, South Australia</p>
+            <p>Pickup and delivery options available</p>
+            <p>Custom styling and event packages on request</p>
+            <a href="tel:+61431793502">0431 793 502</a>
+            <a href="mailto:hello@prettylittleplattersadl.com.au">hello@prettylittleplattersadl.com.au</a>
+          </div>
+        </div>
+
+        <form class="order-form" id="contactForm">
+          <label>
+            Your name
+            <input name="name" autocomplete="name" required>
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Phone
+            <input name="phone" autocomplete="tel">
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" placeholder="Tell us about your event, guest count, or any questions you have…" required></textarea>
+          </label>
+          <button class="button primary" type="submit">Send message</button>
+          <p class="form-status" id="formStatus" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div>
+        <img src="assets/logo.jpg" alt="Pretty Little Platters ADL logo">
+        <p>Pretty Little Platters ADL</p>
+      </div>
+      <address>
+        <a href="https://www.instagram.com/prettylittleplattersadl/">@prettylittleplattersadl</a>
+        <a href="https://www.facebook.com/PLPADL">facebook.com/PLPADL</a>
+        <a href="tel:+61431793502">0431 793 502</a>
+        <a href="mailto:hello@prettylittleplattersadl.com.au">hello@prettylittleplattersadl.com.au</a>
+      </address>
+      <p class="footer-copyright">&copy; 2026 Pretty Little Platters ADL. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const contactForm = document.querySelector("#contactForm");
+      const formStatus = document.querySelector("#formStatus");
+
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const submitBtn = contactForm.querySelector("button[type=submit]");
+        submitBtn.disabled = true;
+        formStatus.textContent = "Sending…";
+
+        const data = new FormData(contactForm);
+
+        try {
+          const res = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              access_key: "bbb82989-213b-4013-bde9-e8db6e3e1ba0",
+              subject: "Pretty Little Platters enquiry",
+              from_name: data.get("name"),
+              email: data.get("email"),
+              replyto: data.get("email"),
+              message: [
+                `Name: ${data.get("name")}`,
+                `Email: ${data.get("email")}`,
+                `Phone: ${data.get("phone") || ""}`,
+                "",
+                `Message: ${data.get("message")}`,
+              ].join("\n"),
+            }),
+          });
+
+          const result = await res.json();
+          if (result.success) {
+            formStatus.textContent = "Message sent! We'll be in touch soon.";
+            contactForm.reset();
+          } else {
+            throw new Error(result.message || "Submission failed");
+          }
+        } catch {
+          formStatus.textContent = "Something went wrong. Please email us directly at hello@prettylittleplattersadl.com.au";
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    </script>
+
+    <script src="transitions.js"></script>
+  </body>
+</html>
