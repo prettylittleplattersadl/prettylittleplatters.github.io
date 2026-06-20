@@ -1106,7 +1106,6 @@ address a {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    position: relative;
     transition: transform 0.3s ease;
   }
 
