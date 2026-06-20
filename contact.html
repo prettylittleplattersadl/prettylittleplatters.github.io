@@ -80,7 +80,7 @@
           </label>
           <label>
             Message
-            <textarea name="message" rows="5" placeholder="Tell us about your event, guest count, or any questions you haveâ€¦" required></textarea>
+            <textarea name="message" rows="5" placeholder="Tell us about your event, guest count, or any questions you have&rdquo;¦" required></textarea>
           </label>
           <button class="button primary" type="submit">Send message</button>
           <p class="form-status" id="formStatus" role="status"></p>
@@ -101,7 +101,7 @@
       </address>
       <p class="footer-copyright">
         <span>&copy; 2026 PrettyLittlePlattersADL</span>
-        <span>All rights reserved. &nbsp;Â·&nbsp; <a href="terms.html">Terms &amp; Conditions</a></span>
+        <span>All rights reserved. &nbsp;&middot;&nbsp; <a href="terms.html">Terms &amp; Conditions</a></span>
         <span>Built by <a href="https://launchpilotdigital.com.au" target="_blank" rel="noopener noreferrer">Launch Pilot Digital</a></span>
       </p>
     </footer>
@@ -115,7 +115,7 @@
 
         const submitBtn = contactForm.querySelector("button[type=submit]");
         submitBtn.disabled = true;
-        formStatus.textContent = "Sendingâ€¦";
+        formStatus.textContent = "Sending&rdquo;¦";
 
         const data = new FormData(contactForm);
 
