@@ -23,6 +23,14 @@ const menuItems = [
       ["Platter (20 - 30)", 450],
     ],
   },
+  {
+    icon: "WS",
+    script: "Wraps &",
+    label: "Sandwiches",
+    description:
+      "Fresh wraps and sandwiches prepared for meetings, celebrations and catered events.",
+    sizes: [["Custom order", null]],
+  },
 ];
 
 const selected = [];
@@ -44,6 +52,10 @@ function fromMoney(value) {
   return `From ${money(value)}`;
 }
 
+function priceLabel(value) {
+  return value === null ? "Contact for quote" : fromMoney(value);
+}
+
 function renderMenu() {
   menuGrid.innerHTML = menuItems
     .map((item, itemIndex) => {
@@ -52,7 +64,7 @@ function renderMenu() {
           ([name, price], sizeIndex) => `
             <button type="button" data-item="${itemIndex}" data-size="${sizeIndex}">
               <span>${name}</span>
-              <strong>${fromMoney(price)}</strong>
+              <strong>${priceLabel(price)}</strong>
             </button>
           `
         )
@@ -86,22 +98,26 @@ function renderCart() {
         <div class="cart-row">
           <div class="cart-item-summary">
             <span>${entry.title} - ${entry.size}</span>
-            <strong>${fromMoney(entry.price)} each</strong>
+            <strong>${priceLabel(entry.price)}${entry.price === null ? "" : " each"}</strong>
           </div>
           <div class="quantity-control" aria-label="Quantity for ${entry.title}">
             <button type="button" aria-label="Decrease quantity" data-quantity="${index}" data-change="-1">-</button>
             <span>Qty ${entry.quantity}</span>
             <button type="button" aria-label="Increase quantity" data-quantity="${index}" data-change="1">+</button>
           </div>
-          <strong>${fromMoney(entry.price * entry.quantity)}</strong>
+          <strong>${entry.price === null ? "Quote required" : fromMoney(entry.price * entry.quantity)}</strong>
           <button class="cart-remove" type="button" aria-label="Remove ${entry.title}" data-remove="${index}">&times;</button>
         </div>
       `
     )
     .join("");
 
-  const total = selected.reduce((sum, entry) => sum + entry.price * entry.quantity, 0);
-  cartTotal.textContent = `Estimated total from: ${money(total)}`;
+  const pricedItems = selected.filter((entry) => entry.price !== null);
+  const total = pricedItems.reduce((sum, entry) => sum + entry.price * entry.quantity, 0);
+  const hasQuoteItems = pricedItems.length !== selected.length;
+  cartTotal.textContent = pricedItems.length
+    ? `Estimated total from: ${money(total)}${hasQuoteItems ? " + quoted items" : ""}`
+    : "Contact us for a quote";
   syncSelectedButtons();
 }
 
@@ -175,12 +191,18 @@ orderForm.addEventListener("submit", async (event) => {
     ? selected
         .map(
           (entry) =>
-            `- ${entry.title}, ${entry.size}, Qty ${entry.quantity}, ${fromMoney(entry.price * entry.quantity)}`
+            `- ${entry.title}, ${entry.size}, Qty ${entry.quantity}, ${entry.price === null ? "Contact for quote" : fromMoney(entry.price * entry.quantity)}`
         )
         .join("\n")
     : "- No platter selected yet";
 
-  const total = selected.reduce((sum, entry) => sum + entry.price * entry.quantity, 0);
+  const pricedItems = selected.filter((entry) => entry.price !== null);
+  const total = pricedItems.reduce((sum, entry) => sum + entry.price * entry.quantity, 0);
+  const totalSummary = !selected.length
+    ? money(0)
+    : pricedItems.length
+      ? `${money(total)}${pricedItems.length !== selected.length ? " + quoted items" : ""}`
+      : "Contact for quote";
   const message = [
     `Name: ${data.get("name")}`,
     `Email: ${data.get("email")}`,
@@ -190,7 +212,7 @@ orderForm.addEventListener("submit", async (event) => {
     "Selected items:",
     items,
     "",
-    `Estimated total from: ${money(total)}`,
+    `Estimated total from: ${totalSummary}`,
     "",
     `Notes: ${data.get("notes") || ""}`,
   ].join("\n");
