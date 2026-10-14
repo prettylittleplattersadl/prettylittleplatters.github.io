@@ -11,22 +11,47 @@
       "id": "signature-grazing",
       "name": "Signature Grazing",
       "images": [
+        "IMG_4018.jpg",
+        "IMG_5045.jpg",
         "PRETTY LITTLE PLATTERS June2026-34.jpg",
-        "Table Image.jpg"
+        "Table Image.jpg",
+        "assorted-grazing-boxes.jpg"
       ]
     },
     {
       "id": "sweet-treats",
       "name": "Sweet Treats",
       "images": [
-        "Sweets Box.jpg"
+        "IMG_3960.jpg",
+        "IMG_3965.jpg",
+        "IMG_3974.jpg",
+        "IMG_3988-2.jpg",
+        "IMG_3995-2.jpg",
+        "IMG_4192.jpg",
+        "IMG_4193.jpg",
+        "Sweets Box.jpg",
+        "macaron-and-muffin-table.jpg"
       ]
     },
     {
       "id": "grazing-tables",
       "name": "Grazing Tables",
       "images": [
+        "IMG_3993-2.jpg",
+        "IMG_3994-2.jpg",
+        "IMG_4657.jpg",
+        "IMG_4660.jpg",
+        "IMG_4666.jpg",
         "PRETTY LITTLE PLATTERS June2026-42.jpg"
+      ]
+    },
+    {
+      "id": "wraps-and-sandwiches",
+      "name": "Wraps & Sandwiches",
+      "images": [
+        "IMG_4270.jpg",
+        "IMG_4279.jpg",
+        "IMG_4280.jpg"
       ]
     }
   ]
