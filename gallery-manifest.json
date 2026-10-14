@@ -39,9 +39,6 @@
       "images": [
         "IMG_3993-2.jpg",
         "IMG_3994-2.jpg",
-        "IMG_4657.jpg",
-        "IMG_4660.jpg",
-        "IMG_4666.jpg",
         "PRETTY LITTLE PLATTERS June2026-42.jpg"
       ]
     },
@@ -52,6 +49,15 @@
         "IMG_4270.jpg",
         "IMG_4279.jpg",
         "IMG_4280.jpg"
+      ]
+    },
+    {
+      "id": "custom-gallery",
+      "name": "Custom Gallery",
+      "images": [
+        "IMG_4657.jpg",
+        "IMG_4660.jpg",
+        "IMG_4666.jpg"
       ]
     }
   ]
