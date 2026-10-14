@@ -12,18 +12,6 @@ const menuItems = [
     ],
   },
   {
-    icon: "MC",
-    script: "Meat &",
-    label: "Cheese",
-    description:
-      "A classic charcuterie-style selection with artisan cheeses, premium cured meats and savoury accompaniments.",
-    sizes: [
-      ["Box (up to 10)", 185],
-      ["Platter (10 - 20)", 320],
-      ["Platter (20 - 30)", 470],
-    ],
-  },
-  {
     icon: "ST",
     script: "Sweet",
     label: "Treats",

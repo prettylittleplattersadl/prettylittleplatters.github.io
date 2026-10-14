@@ -2,6 +2,5 @@
   { "id": "featured",          "name": "Featured"          },
   { "id": "signature-grazing", "name": "Signature Grazing" },
   { "id": "sweet-treats",      "name": "Sweet Treats"      },
-  { "id": "grazing-tables",    "name": "Grazing Tables"    },
-  { "id": "meat-and-cheese",   "name": "Meat & Cheese"     }
+  { "id": "grazing-tables",    "name": "Grazing Tables"    }
 ]
