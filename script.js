@@ -6,9 +6,9 @@ const menuItems = [
     description:
       "Our signature grazing selection featuring premium cheeses, cured meats, seasonal fruit, dips, crackers and gourmet accompaniments.",
     sizes: [
-      ["Box (up to 10)", 170],
-      ["Platter (10 - 20)", 290],
-      ["Platter (20 - 30)", 420],
+      ["Box (up to 10)", 190],
+      ["Platter (10 - 20)", 310],
+      ["Platter (20 - 30)", 440],
     ],
   },
   {
@@ -18,9 +18,9 @@ const menuItems = [
     description:
       "A beautifully styled sweet selection featuring chocolates, baked treats, fresh fruit and dessert-inspired grazing.",
     sizes: [
-      ["Box (up to 10)", 180],
-      ["Platter (10 - 20)", 310],
-      ["Platter (20 - 30)", 450],
+      ["Box (up to 10)", 200],
+      ["Platter (10 - 20)", 330],
+      ["Platter (20 - 30)", 470],
     ],
   },
   {
