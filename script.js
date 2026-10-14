@@ -25,10 +25,10 @@ const menuItems = [
   },
   {
     icon: "WS",
-    script: "Wraps &",
-    label: "Sandwiches",
+    script: "Sandwiches",
+    label: "and wraps",
     description:
-      "Fresh wraps and sandwiches prepared for meetings, celebrations and catered events.",
+      "Fresh sandwiches and wraps prepared for meetings, celebrations and catered events.",
     sizes: [["Custom order", null]],
   },
 ];
