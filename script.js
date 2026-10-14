@@ -24,7 +24,7 @@ const menuItems = [
     ],
   },
   {
-    icon: "WS",
+    icon: "SW",
     script: "Sandwiches",
     label: "and wraps",
     description:
